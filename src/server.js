@@ -13,14 +13,9 @@ note : 404 >> should be after all routes
        500 >> should be the last thing in the middle */
 
 
-const userRoutes = require('./middleware/routes.js')
+const userRoutes = require('./auth/router');
 const error404 = require('./middleware/404.js');
 const error500 = require('./middleware/500.js');
-
-
-// const categoryRoutes = require('../routes/category.js');
-// const productsRoutes = require('../routes/products.js');
-// const apiv1 = require('../routes/api-v1.js');
 
 const app = express();
 
@@ -37,7 +32,6 @@ app.use(userRoutes);
 
 
 //------------------------------------------------------------------------------
-
 
 
 app.get('/bad', (req, res)=> {
