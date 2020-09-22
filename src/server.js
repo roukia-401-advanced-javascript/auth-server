@@ -14,6 +14,7 @@ note : 404 >> should be after all routes
 
 
 const userRoutes = require('./auth/router');
+const extraRoutes = require ('./auth/extra-routes');
 const error404 = require('./middleware/404.js');
 const error500 = require('./middleware/500.js');
 
@@ -29,6 +30,7 @@ app.use(morgan('dev'));
 //-----------------------------------------------routes----------------------
 
 app.use(userRoutes);
+app.use(extraRoutes);
 
 
 //------------------------------------------------------------------------------

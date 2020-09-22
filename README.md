@@ -25,6 +25,8 @@
 
 - GET >> `http://localhost:4000/users`
 
+- GET >> `http://localhost:4000/secret`
+
 ## UML
 
 ### lab-11
