@@ -37,7 +37,7 @@ function signUpHandler(req, res) {
             let user = new users(req.body);
             // hash the password first by adding hook in the schema 
             user.save().then((user) => { // method to save to db it return the saved user 
-                let token = users.generateToken(user.username); //users is the schema i will pass the username of the saved user
+                let token = users.generateToken(user); //users is the schema i will pass the username of the saved user
                 res.status(201).send(token);
             });
         }

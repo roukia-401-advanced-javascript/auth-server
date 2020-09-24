@@ -13,7 +13,15 @@ const SECRET = 'mytokensecret';
 const userSchema = mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
+  role: {type: String, required: true, enum: ['Regular ', 'Writers', 'Administrators']}
 });
+
+let roles = {
+  Regular: ['read'],
+  Writers: ['read', 'create'],
+  Administrators: ['read', 'create', 'update', 'delete'],
+
+};
 
 // hooks //.pre
 // right before the save , do this function which is to hash the pass
@@ -31,8 +39,11 @@ userSchema.methods.comparePasswords = async function (password) {
 
 // add static methods
 //userSchema.statics > add static methods on the schema
-userSchema.statics.generateToken = function (username) {
-  return jwt.sign({ username: username }, SECRET);
+userSchema.statics.generateToken = function (user) {
+  console.log("i am the user ",user);
+  console.log("i am the user.username ",user.username);
+  console.log("i am the roles[user.role] ",roles[user.role]);
+  return jwt.sign({ username: user.username ,actions: roles[user.role]}, SECRET);
 };
 
 userSchema.statics.authenticateBasic = async function (username, password) {
