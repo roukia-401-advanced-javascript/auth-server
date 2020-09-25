@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose --coverage",
+    "test": "jest --verbose --coverage ",
     "lint": "eslint '**/*.js'"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/roukia-401-advanced-javascript/auth-server#readme",
   "dependencies": {
+    "@code-fellows/supergoose": "^1.0.11",
     "base-64": "^0.1.0",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
@@ -27,10 +28,9 @@
     "express": "^4.17.1",
     "jest": "^26.4.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.6",
-    "morgan": "^1.10.0"
+    "mongoose": "^5.10.7",
+    "morgan": "^1.10.0",
+    "supergoose": "^0.2.6"
   },
-  "devDependencies": {
-    "@code-fellows/supergoose": "^1.0.11"
-  }
+  "devDependencies": {}
 }

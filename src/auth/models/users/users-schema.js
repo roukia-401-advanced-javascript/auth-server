@@ -29,6 +29,12 @@ userSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, 5); //this.password reffer to the password from from the save function not the one in DB
 });
 
+//  userSchema.methods.create = async function (user) {
+//   // await this.schema.find({ username: user.username });
+//   let newUser = new userSchema(user);
+//   return await newUser.save();
+// }
+
 
 //add methods to schema 
 // userSchema.methods > will add methods on the schema  
