@@ -23,7 +23,7 @@
 
 - POST >> `http://localhost:4000/signin`
 
-- GET >> `http://localhost:4000/users`
+- GET >> `http://localhost:4000/allUsers`
 
 - GET >> `http://localhost:4000/secret`
 
