@@ -13,7 +13,7 @@ const SECRET = 'mytokensecret';
 const userSchema = mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
-  role: {type: String, required: true, enum: ['Regular ', 'Writers', 'Administrators']}
+  role: {type: String, enum: ['Regular ', 'Writers', 'Administrators']},
 });
 
 let roles = {
@@ -26,9 +26,13 @@ let roles = {
 // hooks //.pre
 // right before the save , do this function which is to hash the pass
 userSchema.pre('save', async function () {
-  this.password = await bcrypt.hash(this.password, 5); //this.password reffer to the password from from the save function not the one in DB
+  try{
+    this.password = await bcrypt.hash(this.password, 5); //this.password reffer to the password from from the save function not the one in DB
+  }
+  catch (e) {
+    return Promise.reject();
+  }
 });
-
 
 //add methods to schema 
 // userSchema.methods > will add methods on the schema  
@@ -40,9 +44,9 @@ userSchema.methods.comparePasswords = async function (password) {
 // add static methods
 //userSchema.statics > add static methods on the schema
 userSchema.statics.generateToken = function (user) {
-  console.log("i am the user ",user);
-  console.log("i am the user.username ",user.username);
-  console.log("i am the roles[user.role] ",roles[user.role]);
+  console.log('i am the user ',user);
+  console.log('i am the user.username ',user.username);
+  console.log('i am the roles[user.role] ',roles[user.role]);
   return jwt.sign({ username: user.username ,actions: roles[user.role]}, SECRET);
 };
 
@@ -62,14 +66,14 @@ userSchema.statics.authenticateToken = async function (token) {
   //do it try and catch in jwt.verify
   try {
     let tokenObject = jwt.verify(token, SECRET); //jwt.verify will return an object after decoded the token
-    console.log("tokenObject -----> ", tokenObject); //check if this exist in my db by username or id
+    console.log('tokenObject -----> ', tokenObject); //check if this exist in my db by username or id
     let results = await this.findOne({ username: tokenObject.username }); 
-    console.log("results", results); 
+    console.log('results', results); 
     if (results) {
       return Promise.resolve({
         tokenObject: tokenObject,
-        user: tokenObject.username
-      })
+        user: tokenObject.username,
+      });
     } else {
       return Promise.reject();
     }
@@ -77,7 +81,7 @@ userSchema.statics.authenticateToken = async function (token) {
   } catch (e) {
     return Promise.reject();
   }
-}
+};
 
 
 

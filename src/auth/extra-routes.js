@@ -4,7 +4,7 @@
 const express = require('express');
 
 //require schema
-const users = require('./models/users/users-schema');
+require('./models/users/users-schema');
 
 //middleware bearerAuth
 const bearerAuth = require('./middleware/bearerAuth');
@@ -27,25 +27,25 @@ router.delete('/remove', bearerAuth, permissions('delete'),deletefun);
 
 
 function getuser(req, res) {
-    console.log(req.user);
-    res.status(200).json(req.user.user);
+  console.log(req.user);
+  res.status(200).json(req.user.user);
 }
 
 
 function readFun(req, res) {
-    res.status(200).send("read !!!! ")
+  res.status(200).send('read !!!! ');
 }
 
 function createFun(req, res) {
-    res.status(200).send("created !!!! ")
+  res.status(200).send('created !!!! ');
 }
 
 function updateFun(req, res) {
-    res.status(200).send("updated !!!! ")
+  res.status(200).send('updated !!!! ');
 }
 
 function deletefun(req, res) {
-    res.status(200).send("DELETED !!!! ")
+  res.status(200).send('DELETED !!!! ');
 }
 module.exports = router;
 
