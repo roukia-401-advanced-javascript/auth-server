@@ -10,6 +10,9 @@ const users = require('./models/users/users-schema');
 
 const basicAuth = require('./middleware/basicAuth');
 
+//middleware openAuth
+
+const OAuthMiddleware = require('./middleware/oauth');
 
 // express Router
 const router = express.Router();
@@ -18,6 +21,7 @@ const router = express.Router();
 router.post('/signup', signUpHandler);
 router.post('/signin', basicAuth, signInHandler); //basicAuth is a middleware (seperate file)
 router.get('/allusers', basicAuth, getAllUsers);
+router.get('/oauth', OAuthMiddleware, oAuthSignunHandler);
 
 
 // router.delete('/deleteuser', (req, res) => {
@@ -46,6 +50,7 @@ function signUpHandler(req, res) {
 }
 
 
+
 function signInHandler(req, res) {
     if (req.basicAuth) {
         // add the token as cookie 
@@ -69,6 +74,9 @@ function getAllUsers(req, res) {
     }
 }
 
+function oAuthSignunHandler(req,res){
+    res.status(200).send(req.token);
+}
 
 
 
